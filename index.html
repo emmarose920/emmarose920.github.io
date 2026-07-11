@@ -348,65 +348,62 @@
     max-width:44ch;line-height:1.5;
   }
 
-  /* ---------- horizontal scrollers ---------- */
-  .scroll-hint{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-  .hscroller{position:relative;margin-top:20px}
-  .hscroller::after{
-    content:"";position:absolute;top:0;right:0;bottom:16px;width:90px;
-    background:linear-gradient(90deg,rgba(247,246,241,0),var(--paper));pointer-events:none;
+  /* ---------- selected work: scroll vertically, moves horizontally ---------- */
+  .hx{padding:0;position:relative}
+  .hx-sticky{position:sticky;top:0;min-height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:76px 0 24px}
+  .hx-count{font-family:var(--mono);font-size:12px;letter-spacing:.14em;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .hx-count .cur{color:var(--accent);font-weight:700}
+  .hx-prog{height:2px;background:var(--line);border-radius:1px;margin:16px 0 30px}
+  .hx-prog i{display:block;height:100%;width:0;background:var(--accent);border-radius:1px}
+  .hx-track{display:flex;gap:22px;will-change:transform;padding:0 max(28px,calc((100vw - 1064px)/2))}
+  .hx-panel{
+    flex:0 0 min(940px,calc(100vw - 130px));
+    background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:32px 36px 28px;
   }
-  .htrack{
-    display:flex;gap:18px;overflow-x:auto;padding:6px 4px 18px;
-    scroll-snap-type:x proximity;cursor:grab;
-    scrollbar-width:thin;scrollbar-color:var(--line) transparent;
-  }
-  .htrack.tl{padding-top:30px}
-  .htrack.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}
-  .htrack::-webkit-scrollbar{height:6px}
-  .htrack::-webkit-scrollbar-track{background:var(--paper-dim);border-radius:3px}
-  .htrack::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
-  .htrack:hover::-webkit-scrollbar-thumb{background:var(--accent)}
-
-  /* case study slides */
-  .case-slide{
-    flex:0 0 560px;scroll-snap-align:start;
-    background:#fff;border:1px solid var(--line);border-radius:10px;
-    padding:24px 26px 22px;display:flex;flex-direction:column;
-  }
-  @media(max-width:680px){.case-slide{flex-basis:88vw}}
-  .case-slide h3{font-size:22px;line-height:1.25;margin:12px 0 10px;font-weight:600}
-  .case-slide .cs-body{font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin-bottom:18px}
-  .case-slide .cs-body strong{color:var(--ink);font-weight:600}
-  .cs-results{margin-top:auto;border-top:2px solid var(--ink)}
-  .cs-r{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:9px 0;border-bottom:1px solid var(--paper-dim)}
-  .cs-r dt{font-family:var(--serif);font-size:16.5px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .hx-panel h3{font-size:clamp(22px,2.6vw,30px);line-height:1.2;margin:12px 0 16px;font-weight:600;max-width:30ch}
+  .hxp-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:42px;align-items:start}
+  .cs-body{font-size:15px;line-height:1.65;color:var(--ink-soft)}
+  .cs-body strong{color:var(--ink);font-weight:600}
+  .cs-results{border-top:2px solid var(--ink)}
+  .cs-r{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:10px 0;border-bottom:1px solid var(--paper-dim)}
+  .cs-r dt{font-family:var(--serif);font-size:17px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
   .cs-r dt i{font-style:italic;color:var(--accent)}
   .cs-r dd{font-size:12.5px;color:var(--muted);text-align:right;line-height:1.45}
-  .case-slide .tools{margin-top:14px;gap:6px}
-  .case-slide .tools span{font-size:10.5px;padding:3px 9px}
+  .hx-panel .tools{margin-top:16px;gap:6px}
+  .hx-panel .tools span{font-size:10.5px;padding:3px 9px}
   .cs-note{margin-top:14px;font-size:12.5px;color:var(--muted);border-left:2px solid var(--accent);padding-left:10px;line-height:1.5}
-  .arc-card{
-    position:relative;flex:0 0 302px;scroll-snap-align:start;
-    background:#fff;border:1px solid var(--line);border-radius:8px;
-    padding:20px 22px 24px;
+  @media(max-width:860px),(prefers-reduced-motion:reduce){
+    .hx{height:auto!important}
+    .hx-sticky{position:static;min-height:0;padding:64px 0 8px}
+    .hx-track{flex-direction:column;transform:none!important;gap:18px;padding:0 28px}
+    .hx-panel{flex-basis:auto;width:100%;padding:22px 22px 20px}
+    .hxp-grid{grid-template-columns:1fr;gap:18px}
+    .hx-count,.hx-prog{display:none}
   }
-  .arc-card::before{
-    content:"";position:absolute;top:-26px;left:3px;width:9px;height:9px;border-radius:50%;
-    background:var(--paper);box-shadow:inset 0 0 0 2px var(--accent);
+
+  /* ---------- career arc: a line with stops ---------- */
+  .tl{position:relative;margin-top:44px;height:340px}
+  .tl-line{position:absolute;left:0;right:0;top:50%;height:2px;background:linear-gradient(90deg,var(--line) 0%,var(--line) 55%,var(--accent) 100%)}
+  .stop{position:absolute;top:50%}
+  .stop .dot{position:absolute;top:0;left:0;width:13px;height:13px;border-radius:50%;background:var(--paper);box-shadow:inset 0 0 0 2.5px var(--accent);transform:translate(-50%,-50%)}
+  .stop .card{position:absolute;left:0;width:212px;transform:translateX(-50%);text-align:center}
+  .stop.up .card{bottom:24px}
+  .stop.down .card{top:24px}
+  .stop:first-child .card{transform:translateX(-12%);text-align:left}
+  .stop:last-child .card{transform:translateX(-88%);text-align:right}
+  .stop .when{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--accent);display:block;margin-bottom:6px;font-variant-numeric:tabular-nums}
+  .stop h4{font-family:var(--serif);font-size:17.5px;font-weight:600;line-height:1.25;margin-bottom:3px}
+  .stop .org{font-size:12.5px;color:var(--muted);line-height:1.5}
+  .stop.now .dot{background:var(--accent-bright);box-shadow:0 0 0 6px rgba(58,167,109,.18)}
+  @media(max-width:860px){
+    .tl{height:auto;padding-left:26px}
+    .tl-line{left:6px;right:auto;top:4px;bottom:4px;width:2px;height:auto;background:linear-gradient(180deg,var(--line) 0%,var(--accent) 100%)}
+    .stop{position:relative;left:auto!important;top:auto;margin-bottom:26px}
+    .stop:last-child{margin-bottom:0}
+    .stop .card{position:static;transform:none!important;width:auto;text-align:left}
+    .stop .dot{left:-19px;top:6px;transform:translate(-50%,0)}
   }
-  .arc-card::after{
-    content:"";position:absolute;top:-22px;left:18px;right:-19px;height:1px;background:var(--line);
-  }
-  .arc-card:last-child::after{display:none}
-  .arc-card .ac-when{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--accent);font-variant-numeric:tabular-nums;display:block;margin-bottom:10px}
-  .arc-card h4{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.25;margin-bottom:2px}
-  .arc-card .ac-org{font-size:13px;color:var(--muted);margin-bottom:10px}
-  .arc-card p{font-size:13.5px;line-height:1.55;color:var(--ink-soft)}
-  .arc-card.now{background:var(--ink);border-color:var(--ink);color:var(--paper)}
-  .arc-card.now::before{background:var(--accent-bright);box-shadow:none}
-  .arc-card.now .ac-when{color:var(--accent-bright)}
-  .arc-card.now .ac-org{color:#a3b1a8}
-  .arc-card.now p{color:#bfc9c2}
 
   /* ---------- about ---------- */
   .about-grid{display:grid;grid-template-columns:minmax(0,1fr) 264px;gap:64px;margin-top:26px;align-items:start}
@@ -560,65 +557,81 @@
     </div>
   </div>
 
-  <section id="work">
-    <div class="wrap">
-      <div class="sec-head reveal"><span class="kite"></span><h2>Selected work</h2><div class="rule"></div><span class="scroll-hint">drag →</span></div>
-      <p class="sec-intro reveal">Four projects, four different jobs. One I built alone, one I shipped inside a big company, one a client paid for, and one grew a business until it was bought. Each card is the two-minute version; I'm happy to go as deep as you like in person.</p>
-
-      <div class="hscroller reveal">
-        <div class="htrack" tabindex="0" role="region" aria-label="Case studies, scrolls horizontally">
-          <article class="case-slide">
-            <div class="case-meta"><span class="who">Stacks · Co-founder &amp; sole builder · 2026</span><span class="chip live">Live with real users</span></div>
-            <h3>A WhatsApp AI nutritionist, built end to end by one person</h3>
-            <p class="cs-body">Stacks is a two-person venture; the build is mine. <strong>Molly</strong> chats to users about their goals, diet, lifestyle and blood work, then recommends a personalised supplement stack. She handles text, voice notes and photos, with a review dashboard and automated quality scoring behind her.</p>
+  <section class="hx" id="work">
+    <div class="hx-sticky">
+      <div class="wrap">
+        <div class="sec-head"><span class="kite"></span><h2>Selected work</h2><div class="rule"></div><span class="hx-count"><span class="cur">01</span> / 04</span></div>
+        <p class="sec-intro">Four projects, four different jobs. One I built alone, one I shipped inside a big company, one a client paid for, and one grew a business until it was bought.</p>
+        <div class="hx-prog"><i></i></div>
+      </div>
+      <div class="hx-track">
+        <article class="hx-panel">
+          <div class="case-meta"><span class="who">Stacks · Co-founder &amp; sole builder · 2026</span><span class="chip live">Live with real users</span></div>
+          <h3>A WhatsApp AI nutritionist, built end to end by one person</h3>
+          <div class="hxp-grid">
+            <div>
+              <p class="cs-body">Stacks is a two-person venture; the build is mine. <strong>Molly</strong> chats to users about their goals, diet, lifestyle and blood work, then recommends a personalised supplement stack. She handles text, voice notes and photos, with a review dashboard and automated quality scoring behind her.</p>
+              <div class="tools"><span>Claude</span><span>WhatsApp via Twilio</span><span>Supabase</span><span>Railway + Vercel</span></div>
+              <p class="cs-note">Try her yourself at <a href="https://stackssupplements.ai" target="_blank" rel="noopener">stackssupplements.ai</a>.</p>
+            </div>
             <dl class="cs-results">
               <div class="cs-r"><dt><i>Live</i> today</dt><dd>real users on the live WhatsApp number</dd></div>
               <div class="cs-r"><dt>2 weeks</dt><dd>from idea to live bot, built solo</dd></div>
               <div class="cs-r"><dt>Voice, photo, text</dt><dd>plus automated conversation scoring</dd></div>
             </dl>
-            <div class="tools"><span>Claude</span><span>WhatsApp via Twilio</span><span>Supabase</span><span>Railway + Vercel</span></div>
-            <p class="cs-note">Try her yourself at <a href="https://stackssupplements.ai" target="_blank" rel="noopener">stackssupplements.ai</a>.</p>
-          </article>
+          </div>
+        </article>
 
-          <article class="case-slide">
-            <div class="case-meta"><span class="who">Calo Inc. · Principal Product Manager · 2024 to 2025</span><span class="chip beta">Beta at departure</span></div>
-            <h3>An AI health coach that closes the gap between logged and eaten</h3>
-            <p class="cs-body">Calo's number one reason for cancelling was <strong>"I'm not seeing results"</strong>, usually caused by everything people don't log. The coach lives on WhatsApp: photograph a meal, log by voice, answer a probing question or two, and next week's plan adjusts. Clinical guardrails were defined with nutritionists, and I tuned the AI's prompts myself.</p>
+        <article class="hx-panel">
+          <div class="case-meta"><span class="who">Calo Inc. · Principal Product Manager · 2024 to 2025</span><span class="chip beta">Beta at departure</span></div>
+          <h3>An AI health coach that closes the gap between logged and eaten</h3>
+          <div class="hxp-grid">
+            <div>
+              <p class="cs-body">Calo’s number one reason for cancelling was <strong>"I’m not seeing results"</strong>, usually caused by everything people don’t log. The coach lives on WhatsApp: photograph a meal, log by voice, answer a probing question or two, and next week’s plan adjusts. Clinical guardrails were defined with nutritionists, and I tuned the AI’s prompts myself.</p>
+              <div class="tools"><span>Claude</span><span>WhatsApp</span><span>Apple HealthKit</span><span>n8n</span></div>
+              <p class="cs-note">Still in beta when I left Calo, so I make no retention claims for it.</p>
+            </div>
             <dl class="cs-results">
               <div class="cs-r"><dt>Concept <i>→</i> beta</dt><dd>live internal testing at my departure</dd></div>
               <div class="cs-r"><dt>Weeks, not months</dt><dd>to a working beta; polish traded for learning speed</dd></div>
               <div class="cs-r"><dt>"Finally I understand"</dt><dd>tester feedback, word for word</dd></div>
             </dl>
-            <div class="tools"><span>Claude</span><span>WhatsApp</span><span>Apple HealthKit</span><span>n8n</span></div>
-            <p class="cs-note">Still in beta when I left Calo, so I make no retention claims for it.</p>
-          </article>
+          </div>
+        </article>
 
-          <article class="case-slide">
-            <div class="case-meta"><span class="who">Independent consulting · Sole consultant · 2026, ongoing</span><span class="chip pilot">Live in pilot</span></div>
-            <h3>An AI quoting agent for a family-run manufacturer</h3>
-            <p class="cs-body">A family-run UK clothing manufacturer, drowning in manual quoting and missed follow-ups. I ran the engagement alone, from first call to delivery. The agent reads enquiries, prices them from a governed price list I set up as the single source of truth, and drafts an on-brand quote into the rep's outbox. <strong>A person always presses send.</strong></p>
+        <article class="hx-panel">
+          <div class="case-meta"><span class="who">Independent consulting · Sole consultant · 2026, ongoing</span><span class="chip pilot">Live in pilot</span></div>
+          <h3>An AI quoting agent for a family-run manufacturer</h3>
+          <div class="hxp-grid">
+            <div>
+              <p class="cs-body">A family-run UK clothing manufacturer, drowning in manual quoting and missed follow-ups. I ran the engagement alone, from first call to delivery. The agent reads enquiries, prices them from a governed price list I set up as the single source of truth, and drafts an on-brand quote into the rep’s outbox. <strong>A person always presses send.</strong></p>
+              <div class="tools"><span>Claude</span><span>n8n</span><span>HubSpot</span><span>Outlook</span></div>
+              <p class="cs-note">The client stays unnamed while the work is live; ROI is still being baselined, so none is claimed.</p>
+            </div>
             <dl class="cs-results">
               <div class="cs-r"><dt>20-30 min <i>→</i> under 2</dt><dd>to produce a quote draft</dd></div>
               <div class="cs-r"><dt>Won, scoped, sold</dt><dd>my first paid engagement, since extended</dd></div>
               <div class="cs-r"><dt>Pilot first</dt><dd>one brand, one rep, monitored daily</dd></div>
             </dl>
-            <div class="tools"><span>Claude</span><span>n8n</span><span>HubSpot</span><span>Outlook</span></div>
-            <p class="cs-note">The client stays unnamed while the work is live; ROI is still being baselined, so none is claimed.</p>
-          </article>
+          </div>
+        </article>
 
-          <article class="case-slide">
-            <div class="case-meta"><span class="who">Fresh Fitness Food + Detox Kitchen · CPO · 2019 to 2024</span><span class="chip exit">Acquired by Calo</span></div>
-            <h3>From Google Sheets to the platform that carried a £10m business</h3>
-            <p class="cs-body">FFF ran on spreadsheets and manual workflows. As the <strong>only product hire</strong>, I built the whole digital ecosystem: supplier ordering, client management, billing, kitchen operations, delivery logistics. Then an iOS app, then a second brand absorbed after an acquisition, then the migration onto Calo's platform when we were acquired ourselves.</p>
+        <article class="hx-panel">
+          <div class="case-meta"><span class="who">Fresh Fitness Food + Detox Kitchen · CPO · 2019 to 2024</span><span class="chip exit">Acquired by Calo</span></div>
+          <h3>From Google Sheets to the platform that carried a £10m business</h3>
+          <div class="hxp-grid">
+            <div>
+              <p class="cs-body">FFF ran on spreadsheets and manual workflows. As the <strong>only product hire</strong>, I built the whole digital ecosystem: supplier ordering, client management, billing, kitchen operations, delivery logistics. Then an iOS app, then a second brand absorbed after an acquisition, then the migration onto Calo’s platform when we were acquired ourselves.</p>
+              <div class="tools"><span>0-to-1 build</span><span>Stripe billing</span><span>GA4</span><span>100+ user interviews</span></div>
+              <p class="cs-note">The platform proved strong enough to absorb an unplanned acquisition; the nationwide footprint mattered in ours.</p>
+            </div>
             <dl class="cs-results">
               <div class="cs-r"><dt>£100k <i>→</i> £10m</dt><dd>turnover, London-only to nationwide</dd></div>
               <div class="cs-r"><dt>15% <i>→</i> 3%</dt><dd>food waste, saving hundreds of thousands a year</dd></div>
               <div class="cs-r"><dt>95%</dt><dd>of active customers kept through the migration</dd></div>
             </dl>
-            <div class="tools"><span>0-to-1 build</span><span>Stripe billing</span><span>GA4</span><span>100+ user interviews</span></div>
-            <p class="cs-note">The platform proved strong enough to absorb an unplanned acquisition; the nationwide footprint mattered in ours.</p>
-          </article>
-        </div>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -627,40 +640,29 @@
 
   <section id="arc">
     <div class="wrap">
-      <div class="sec-head reveal"><span class="kite"></span><h2>The arc</h2><div class="rule"></div><span class="scroll-hint">drag →</span></div>
-      <p class="sec-intro reveal">Ten years in health and nutrition, from the clinic side to the product side. Drag through it.</p>
-      <div class="hscroller reveal">
-        <div class="htrack tl" tabindex="0" role="region" aria-label="Career timeline, scrolls horizontally">
-          <article class="arc-card">
-            <span class="ac-when">2015 · 2018</span>
-            <h4>Head of Nutrition &amp; Client Communications</h4>
-            <div class="ac-org">Fresh Fitness Food</div>
-            <p>Led a team of five nutritionists. Quoted as a nutrition expert in GQ, Cosmopolitan and The Telegraph.</p>
-          </article>
-          <article class="arc-card">
-            <span class="ac-when">2018 · 2019</span>
-            <h4>Product Performance Manager</h4>
-            <div class="ac-org">Fresh Fitness Food</div>
-            <p>The deliberate pivot into product: scoped the platform rebuild and made the case to lead it.</p>
-          </article>
-          <article class="arc-card">
-            <span class="ac-when">2019 · 2024</span>
-            <h4>Chief Product Officer</h4>
-            <div class="ac-org">Fresh Fitness Food + Detox Kitchen</div>
-            <p>Sole product leader through two acquisitions. Built the platform, the app, the analytics culture and the nationwide model.</p>
-          </article>
-          <article class="arc-card">
-            <span class="ac-when">2024 · 2025</span>
-            <h4>Principal Product Manager</h4>
-            <div class="ac-org">Calo Inc.</div>
-            <p>Personalisation algorithms serving hundreds of thousands of clients, the UK platform migration, and the AI health coach.</p>
-          </article>
-          <article class="arc-card now">
-            <span class="ac-when">2026 · now</span>
-            <h4>Independent AI Consultant</h4>
-            <div class="ac-org">+ Co-founder, Stacks</div>
-            <p>Selling and delivering applied-AI engagements solo, and running a live AI product of my own.</p>
-          </article>
+      <div class="sec-head reveal"><span class="kite"></span><h2>The arc</h2><div class="rule"></div></div>
+      <p class="sec-intro reveal">Ten years in health and nutrition, from the clinic side to the product side.</p>
+      <div class="tl reveal" role="list" aria-label="Career timeline">
+        <div class="tl-line" aria-hidden="true"></div>
+        <div class="stop up" role="listitem" style="left:6%">
+          <span class="dot" aria-hidden="true"></span>
+          <div class="card"><span class="when">2015 · 2018</span><h4>Head of Nutrition</h4><div class="org">Fresh Fitness Food. Led five nutritionists; quoted in GQ, Cosmopolitan and The Telegraph.</div></div>
+        </div>
+        <div class="stop down" role="listitem" style="left:28%">
+          <span class="dot" aria-hidden="true"></span>
+          <div class="card"><span class="when">2018 · 2019</span><h4>Product Performance Manager</h4><div class="org">Fresh Fitness Food. The pivot into product: scoped the platform rebuild and made the case to lead it.</div></div>
+        </div>
+        <div class="stop up" role="listitem" style="left:50%">
+          <span class="dot" aria-hidden="true"></span>
+          <div class="card"><span class="when">2019 · 2024</span><h4>Chief Product Officer</h4><div class="org">FFF + Detox Kitchen. £100k to £10m as sole product leader, through two acquisitions.</div></div>
+        </div>
+        <div class="stop down" role="listitem" style="left:72%">
+          <span class="dot" aria-hidden="true"></span>
+          <div class="card"><span class="when">2024 · 2025</span><h4>Principal Product Manager</h4><div class="org">Calo Inc. Personalisation at scale, the UK migration and the AI health coach.</div></div>
+        </div>
+        <div class="stop up now" role="listitem" style="left:94%">
+          <span class="dot" aria-hidden="true"></span>
+          <div class="card"><span class="when">2026 · now</span><h4>AI Consultant + Co-founder</h4><div class="org">Independent + Stacks. Live AI products, sold and built solo.</div></div>
         </div>
       </div>
     </div>
@@ -757,22 +759,40 @@
     els.forEach(function(el){ io.observe(el); });
   })();
 
-  /* Horizontal scrollers: drag to scroll */
+  /* Selected work: vertical scroll drives horizontal movement */
   (function(){
-    document.querySelectorAll('.htrack').forEach(function(track){
-      var down = false, startX = 0, startL = 0;
-      track.addEventListener('pointerdown', function(e){
-        down = true; startX = e.clientX; startL = track.scrollLeft;
-        track.classList.add('dragging');
-      });
-      window.addEventListener('pointermove', function(e){
-        if (!down) return;
-        track.scrollLeft = startL - (e.clientX - startX);
-      });
-      window.addEventListener('pointerup', function(){
-        down = false; track.classList.remove('dragging');
-      });
-    });
+    var hx = document.getElementById('work');
+    if (!hx || !hx.classList.contains('hx')) return;
+    var track = hx.querySelector('.hx-track');
+    var bar = hx.querySelector('.hx-prog i');
+    var cur = hx.querySelector('.hx-count .cur');
+    var panels = track.children.length;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var small = window.matchMedia('(max-width: 860px)');
+    var dist = 0, ticking = false;
+    function flat(){ return reduce.matches || small.matches; }
+    function update(){
+      if (flat()) return;
+      var top = hx.getBoundingClientRect().top;
+      var span = hx.offsetHeight - window.innerHeight;
+      var p = span > 0 ? Math.min(1, Math.max(0, -top / span)) : 0;
+      track.style.transform = 'translate3d(' + (-p * dist) + 'px,0,0)';
+      if (bar) bar.style.width = (p * 100) + '%';
+      if (cur) cur.textContent = '0' + (Math.round(p * (panels - 1)) + 1);
+    }
+    function size(){
+      if (flat()) { hx.style.height = 'auto'; track.style.transform = 'none'; return; }
+      dist = Math.max(0, track.scrollWidth - window.innerWidth);
+      hx.style.height = (window.innerHeight + dist) + 'px';
+      update();
+    }
+    window.addEventListener('scroll', function(){
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function(){ update(); ticking = false; });
+    }, {passive:true});
+    window.addEventListener('resize', size);
+    size();
   })();
 
   /* Molly chat demo: plays the conversation, loops, click to replay */
