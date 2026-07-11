@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Emma Rose. Product leader in health tech and AI, London. Product roles, contract work and AI enablement for businesses.">
 <meta property="og:title" content="Emma Rose · Product Leader · Health Tech & AI">
-<meta property="og:description" content="From under £100k to £10m. And I build the AI myself.">
+<meta property="og:description" content="£100k to £10m. And the AI? I build it myself.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
 </head>
 <body>
@@ -72,75 +72,102 @@
   .wrap{max-width:1120px;margin:0 auto;padding:0 28px}
   h1,h2,h3{font-family:var(--serif);font-weight:600;letter-spacing:-.015em}
 
-  /* ---------- top bar ---------- */
+  /* ---------- top bar (dark) ---------- */
   .topbar{
     position:sticky;top:0;z-index:50;
-    background:rgba(247,246,241,.9);
+    background:rgba(15,24,19,.88);
     backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
+    border-bottom:1px solid rgba(255,255,255,.08);
   }
   .topbar .wrap{display:flex;align-items:baseline;justify-content:space-between;padding-top:15px;padding-bottom:15px}
-  .wordmark{font-family:var(--serif);font-size:20px;font-weight:620;color:var(--ink)}
-  .wordmark em{font-style:italic;color:var(--accent)}
+  .wordmark{font-family:var(--serif);font-size:20px;font-weight:620;color:var(--paper)}
+  .wordmark em{font-style:italic;color:var(--accent-bright)}
   .wordmark:hover{text-decoration:none}
   nav.site{display:flex;gap:28px}
   nav.site a{
     font-family:var(--mono);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
-    color:var(--muted);
+    color:#a3b1a8;
   }
-  nav.site a:hover{color:var(--accent);text-decoration:none}
+  nav.site a:hover{color:var(--accent-bright);text-decoration:none}
   @media(max-width:640px){nav.site{gap:16px} nav.site a:nth-child(2){display:none}}
 
-  /* ---------- hero ---------- */
-  .hero{padding:96px 0 0}
-  @media(max-width:820px){.hero{padding-top:64px}}
+  /* ---------- hero (dark) ---------- */
+  .hero{
+    background:var(--ink);color:var(--paper);
+    padding:88px 0 0;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(52% 44% at 78% 6%, rgba(58,167,109,.16), transparent 70%),
+      radial-gradient(40% 34% at 8% 92%, rgba(58,167,109,.07), transparent 70%);
+  }
+  .hero .wrap{position:relative}
+  @media(max-width:820px){.hero{padding-top:56px}}
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:64px;align-items:center;padding-bottom:70px}
+  @media(max-width:860px){.hero-grid{grid-template-columns:1fr;gap:48px;padding-bottom:52px}}
   .hero .eyebrow{
     display:flex;align-items:center;gap:14px;
     font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--ink);margin-bottom:34px;
+    color:#cfd8d1;margin-bottom:34px;
   }
-  .hero .eyebrow::after{content:"";flex:1;height:1px;background:var(--line)}
-  .hero .eyebrow b{color:var(--accent);font-weight:400}
+  .hero .eyebrow::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.14)}
+  .hero .eyebrow b{color:var(--accent-bright);font-weight:400}
   h1.rise{
-    font-size:clamp(44px,7.2vw,94px);
-    line-height:1.01;
-    max-width:14ch;
+    font-size:clamp(42px,5.6vw,76px);
+    line-height:1.03;
+    color:var(--paper);
     text-wrap:balance;
-    margin-bottom:34px;
+    margin-bottom:30px;
   }
   h1.rise .l{display:block;overflow:hidden}
   h1.rise .l span{display:inline-block;animation:riseUp .8s cubic-bezier(.2,.65,.25,1) both}
   h1.rise .l:nth-child(2) span{animation-delay:.14s}
   h1.rise .l:nth-child(3) span{animation-delay:.28s}
   @keyframes riseUp{from{opacity:0;transform:translateY(105%)}to{opacity:1;transform:none}}
-  h1 .flip{font-style:italic;color:var(--accent)}
-  .hero-sub{max-width:58ch;color:var(--ink-soft);font-size:19px;line-height:1.6}
-  .hero-sub b{font-weight:600;color:var(--ink)}
-  .hero-cues{display:flex;gap:30px;margin:36px 0 66px;align-items:center}
-  .hero-cues a{font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  h1 .flip{font-style:italic;color:var(--accent-bright)}
+  .hero-sub{max-width:54ch;color:#bfc9c2;font-size:18.5px;line-height:1.6}
+  .hero-sub b{font-weight:600;color:var(--paper)}
+  .hero-cues{display:flex;gap:28px;margin-top:36px;align-items:center}
+  .hero-cues a{font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--paper)}
+  .hero-cues a:hover{color:var(--accent-bright);text-decoration:none}
   .hero-cues a.solid{
-    background:var(--ink);color:var(--paper);padding:13px 24px;border-radius:3px;font-weight:600;
+    background:var(--accent-bright);color:var(--ink);padding:13px 24px;border-radius:3px;font-weight:700;
   }
-  .hero-cues a.solid:hover{background:var(--accent);text-decoration:none}
+  .hero-cues a.solid:hover{background:#4cbd80;color:var(--ink)}
+
+  /* hero phone */
+  .hero-phone{display:flex;flex-direction:column;align-items:center;gap:14px;animation:fadeUp .9s .3s both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.hero-phone{animation:none}}
+  .hero-phone .phone{
+    transform:rotate(-2.5deg);
+    background:#0c1410;
+    box-shadow:0 34px 64px -24px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.1),0 0 80px -30px rgba(58,167,109,.35);
+  }
+  @media(max-width:860px){.hero-phone .phone{transform:none}}
+  .hero-phone .phone-cap{color:#a3b1a8;text-align:center}
+  .hero-phone .phone-cap a{color:#cfd8d1}
+  .hero-phone .phone-cap a:hover{color:var(--accent-bright)}
 
   /* stat row inside hero */
-  .ledger{border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
+  .ledger{border-top:1px solid rgba(255,255,255,.14);position:relative}
   .ledger-grid{display:grid;grid-template-columns:repeat(4,1fr)}
   @media(max-width:860px){.ledger-grid{grid-template-columns:repeat(2,1fr)}}
-  .stat{padding:30px 28px 34px 0;border-left:1px solid var(--line);padding-left:28px}
+  .stat{padding:28px 28px 40px 28px;border-left:1px solid rgba(255,255,255,.1)}
   .stat:first-child{border-left:none;padding-left:0}
   @media(max-width:860px){
-    .stat{padding-left:0;border-left:none;border-top:1px solid var(--line)}
+    .stat{padding-left:0;border-left:none;border-top:1px solid rgba(255,255,255,.1)}
     .stat:nth-child(-n+2){border-top:none}
-    .stat:nth-child(even){padding-left:28px;border-left:1px solid var(--line)}
+    .stat:nth-child(even){padding-left:28px;border-left:1px solid rgba(255,255,255,.1)}
   }
   .stat .num{
     font-family:var(--serif);font-variant-numeric:tabular-nums;
-    font-size:clamp(30px,3.6vw,44px);font-weight:560;letter-spacing:-.02em;
-    line-height:1.1;
+    font-size:clamp(28px,3.2vw,40px);font-weight:560;letter-spacing:-.02em;
+    line-height:1.1;color:var(--paper);
   }
-  .stat .num i{font-style:italic;color:var(--accent)}
-  .stat .lab{font-size:13.5px;color:var(--muted);margin-top:8px;line-height:1.5;max-width:24ch}
+  .stat .num i{font-style:italic;color:var(--accent-bright)}
+  .stat .lab{font-size:13px;color:#a3b1a8;margin-top:8px;line-height:1.5;max-width:24ch}
 
   /* ---------- section scaffolding ---------- */
   section{padding:88px 0 20px}
@@ -395,18 +422,48 @@
 
 <main id="top">
   <div class="hero">
-    <div class="wrap">
-      <p class="eyebrow">Emma Rose · Senior / Principal Product Manager <b>Health Tech &amp; AI · London</b></p>
-      <h1 class="rise">
-        <span class="l"><span>From under £100k</span></span>
-        <span class="l"><span>to £10m. <span class="flip">And I build</span></span></span>
-        <span class="l"><span class="flip">the AI myself.</span></span>
-      </h1>
-      <p class="hero-sub">Eight years as a product leader in health and nutrition tech: <b>nutritionist to Chief Product Officer</b>, sole product function through two acquisitions, and three AI products now running in production. Every number on this page is real, and where a result is still unproven, it says so.</p>
-      <div class="hero-cues">
-        <a class="solid" href="#work">See the work</a>
-        <a href="#contact">Get in touch ↓</a>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Emma Rose · Product Leader <b>Health Tech &amp; AI · London</b></p>
+        <h1 class="rise">
+          <span class="l"><span>£100k to £10m.</span></span>
+          <span class="l"><span>And the AI?</span></span>
+          <span class="l"><span class="flip">I build it myself.</span></span>
+        </h1>
+        <p class="hero-sub">I'm Emma Rose: <b>nutritionist, then Chief Product Officer, now AI builder.</b> Eight years scaling health and nutrition products through two acquisitions, with three AI products shipped. Every number on this page is real, and where a result is still unproven, it says so.</p>
+        <div class="hero-cues">
+          <a class="solid" href="#work">See the work</a>
+          <a href="#contact">Get in touch ↓</a>
+        </div>
       </div>
+      <aside class="hero-phone" aria-label="Illustration of a Stacks WhatsApp conversation">
+        <div class="phone">
+          <div class="screen">
+            <div class="chat-head">
+              <span class="ava">M</span>
+              <div>
+                <div class="nm">Molly · Stacks</div>
+                <div class="st">online</div>
+              </div>
+            </div>
+            <div class="chat">
+              <div class="bub user">Hey! Training for a half marathon and I'm constantly knackered. What should I be taking?</div>
+              <div class="bub bot">Let's do this properly rather than guess. How does a normal day of eating look, and do you have any recent blood work?</div>
+              <div class="bub user voice"><span class="play"></span><span class="wave"></span><span class="t">0:42</span></div>
+              <div class="bub bot">Thanks, that helps. Low ferritin plus a heavy training block explains the fatigue. Here's where I'd start:</div>
+              <div class="stackcard">
+                <div class="sc-h">Your stack · personalised</div>
+                <ul>
+                  <li>Iron bisglycinate <span>morning</span></li>
+                  <li>Vitamin D3 + K2 <span>with food</span></li>
+                  <li>Magnesium glycinate <span>evening</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="phone-cap">Molly, my AI nutritionist · <a href="https://stackssupplements.ai" target="_blank" rel="noopener">live at stackssupplements.ai</a></span>
+      </aside>
     </div>
     <div class="wrap ledger">
       <div class="ledger-grid">
@@ -454,39 +511,12 @@
             </div>
             <div class="straight" style="margin-top:22px"><b>Why it matters</b>This is the strongest evidence I can offer that I build AI myself rather than just writing requirements for it.</div>
           </div>
-          <aside class="phone-wrap" aria-label="Illustration of a Stacks WhatsApp conversation">
-            <div class="phone">
-              <div class="screen">
-                <div class="chat-head">
-                  <span class="ava">M</span>
-                  <div>
-                    <div class="nm">Molly · Stacks</div>
-                    <div class="st">online</div>
-                  </div>
-                </div>
-                <div class="chat">
-                  <div class="bub user">Hey! Training for a half marathon and I'm constantly knackered. What should I be taking?</div>
-                  <div class="bub bot">Let's do this properly rather than guess. How does a normal day of eating look, and do you have any recent blood work?</div>
-                  <div class="bub user voice"><span class="play"></span><span class="wave"></span><span class="t">0:42</span></div>
-                  <div class="bub bot">Thanks, that helps. Low ferritin plus a heavy training block explains the fatigue. Here's where I'd start:</div>
-                  <div class="stackcard">
-                    <div class="sc-h">Your stack · personalised</div>
-                    <ul>
-                      <li>Iron bisglycinate <span>morning</span></li>
-                      <li>Vitamin D3 + K2 <span>with food</span></li>
-                      <li>Magnesium glycinate <span>evening</span></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <span class="phone-cap">Illustrative conversation</span>
+          <aside class="results">
+            <div class="rhead">Where it stands</div>
+            <div class="rcard"><dt><i>Live</i> today</dt><dd>website and bot both in production, real users on the live WhatsApp number</dd></div>
+            <div class="rcard"><dt>2 weeks</dt><dd>from concept to live bot, as sole builder across product, UX and AI logic</dd></div>
+            <div class="rcard"><dt>Voice, photo, text</dt><dd>full multimodal intake, plus automated conversation quality scoring</dd></div>
           </aside>
-        </div>
-        <div class="rstrip">
-          <div class="rcard"><dt><i>Live</i> today</dt><dd>website and bot both in production, real users on the live WhatsApp number</dd></div>
-          <div class="rcard"><dt>2 weeks</dt><dd>from concept to live bot, as sole builder across product, UX and AI logic</dd></div>
-          <div class="rcard"><dt>Voice, photo, text</dt><dd>full multimodal intake, plus automated conversation quality scoring</dd></div>
         </div>
       </article>
 
