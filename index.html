@@ -348,23 +348,43 @@
     max-width:44ch;line-height:1.5;
   }
 
-  /* ---------- arc (horizontal timeline) ---------- */
+  /* ---------- horizontal scrollers ---------- */
   .scroll-hint{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
-  .arc-scroller{position:relative;margin-top:20px}
-  .arc-scroller::after{
+  .hscroller{position:relative;margin-top:20px}
+  .hscroller::after{
     content:"";position:absolute;top:0;right:0;bottom:16px;width:90px;
     background:linear-gradient(90deg,rgba(247,246,241,0),var(--paper));pointer-events:none;
   }
-  .arc-track{
-    display:flex;gap:18px;overflow-x:auto;padding:30px 4px 18px;
+  .htrack{
+    display:flex;gap:18px;overflow-x:auto;padding:6px 4px 18px;
     scroll-snap-type:x proximity;cursor:grab;
     scrollbar-width:thin;scrollbar-color:var(--line) transparent;
   }
-  .arc-track.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}
-  .arc-track::-webkit-scrollbar{height:6px}
-  .arc-track::-webkit-scrollbar-track{background:var(--paper-dim);border-radius:3px}
-  .arc-track::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
-  .arc-track:hover::-webkit-scrollbar-thumb{background:var(--accent)}
+  .htrack.tl{padding-top:30px}
+  .htrack.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}
+  .htrack::-webkit-scrollbar{height:6px}
+  .htrack::-webkit-scrollbar-track{background:var(--paper-dim);border-radius:3px}
+  .htrack::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+  .htrack:hover::-webkit-scrollbar-thumb{background:var(--accent)}
+
+  /* case study slides */
+  .case-slide{
+    flex:0 0 560px;scroll-snap-align:start;
+    background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:24px 26px 22px;display:flex;flex-direction:column;
+  }
+  @media(max-width:680px){.case-slide{flex-basis:88vw}}
+  .case-slide h3{font-size:22px;line-height:1.25;margin:12px 0 10px;font-weight:600}
+  .case-slide .cs-body{font-size:14.5px;line-height:1.6;color:var(--ink-soft);margin-bottom:18px}
+  .case-slide .cs-body strong{color:var(--ink);font-weight:600}
+  .cs-results{margin-top:auto;border-top:2px solid var(--ink)}
+  .cs-r{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:9px 0;border-bottom:1px solid var(--paper-dim)}
+  .cs-r dt{font-family:var(--serif);font-size:16.5px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .cs-r dt i{font-style:italic;color:var(--accent)}
+  .cs-r dd{font-size:12.5px;color:var(--muted);text-align:right;line-height:1.45}
+  .case-slide .tools{margin-top:14px;gap:6px}
+  .case-slide .tools span{font-size:10.5px;padding:3px 9px}
+  .cs-note{margin-top:14px;font-size:12.5px;color:var(--muted);border-left:2px solid var(--accent);padding-left:10px;line-height:1.5}
   .arc-card{
     position:relative;flex:0 0 302px;scroll-snap-align:start;
     background:#fff;border:1px solid var(--line);border-radius:8px;
@@ -542,124 +562,64 @@
 
   <section id="work">
     <div class="wrap">
-      <div class="sec-head reveal"><span class="kite"></span><h2>Selected work</h2><div class="rule"></div></div>
-      <p class="sec-intro reveal">Four projects, four different jobs. One I built alone, one I shipped inside a big company, one a client paid for, and one grew a business until it was bought.</p>
+      <div class="sec-head reveal"><span class="kite"></span><h2>Selected work</h2><div class="rule"></div><span class="scroll-hint">drag →</span></div>
+      <p class="sec-intro reveal">Four projects, four different jobs. One I built alone, one I shipped inside a big company, one a client paid for, and one grew a business until it was bought. Each card is the two-minute version; I'm happy to go as deep as you like in person.</p>
 
-      <!-- STACKS -->
-      <article class="case reveal">
-        <div class="case-meta">
-          <span class="who">Stacks · Co-founder &amp; sole builder · 2026</span>
-          <span class="chip live">Live with real users</span>
-        </div>
-        <h3>A WhatsApp AI nutritionist, built end to end by one person</h3>
-        <div class="case-grid">
-          <div class="case-body">
-            <p class="kicker">The idea</p>
-            <p>Most supplement advice is generic. Stacks works like a consultation instead: you chat to <strong>Molly</strong>, an AI nutritionist on WhatsApp, about your goals, diet, lifestyle and blood work, and she puts together a stack for you specifically.</p>
-            <p class="kicker">What I built</p>
-            <p>Stacks is a two-person venture; the build is mine. I designed the product and the conversation, wrote Molly's logic and safety rules, and made the website at <a class="case-link" href="https://stackssupplements.ai" target="_blank" rel="noopener">stackssupplements.ai</a>. Users can write, send voice notes or upload photos. Behind it sits a dashboard where I review conversations, plus an automated evaluator that scores each one so problems surface before users complain.</p>
-            <p>It went from idea to live bot in <strong>two weeks</strong> and has real users today. I don't write the code by hand; I direct AI tools that do, and Stacks is what that looks like in practice.</p>
-            <div class="tools">
-              <span>Claude (Anthropic)</span><span>WhatsApp via Twilio</span><span>Voice transcription</span><span>Supabase</span><span>Flask / Python</span><span>Railway + Vercel</span>
-            </div>
-            <div class="straight" style="margin-top:22px"><b>Why it matters</b>If you want evidence that I build AI rather than just write requirements for it, this is it. Message Molly and see.</div>
-          </div>
-          <aside class="results">
-            <div class="rhead">Where it stands</div>
-            <div class="rcard"><dt><i>Live</i> today</dt><dd>website and bot both in production, real users on the live WhatsApp number</dd></div>
-            <div class="rcard"><dt>2 weeks</dt><dd>from concept to live bot, as sole builder across product, UX and AI logic</dd></div>
-            <div class="rcard"><dt>Voice, photo, text</dt><dd>full multimodal intake, plus automated conversation quality scoring</dd></div>
-          </aside>
-        </div>
-      </article>
+      <div class="hscroller reveal">
+        <div class="htrack" tabindex="0" role="region" aria-label="Case studies, scrolls horizontally">
+          <article class="case-slide">
+            <div class="case-meta"><span class="who">Stacks · Co-founder &amp; sole builder · 2026</span><span class="chip live">Live with real users</span></div>
+            <h3>A WhatsApp AI nutritionist, built end to end by one person</h3>
+            <p class="cs-body">Stacks is a two-person venture; the build is mine. <strong>Molly</strong> chats to users about their goals, diet, lifestyle and blood work, then recommends a personalised supplement stack. She handles text, voice notes and photos, with a review dashboard and automated quality scoring behind her.</p>
+            <dl class="cs-results">
+              <div class="cs-r"><dt><i>Live</i> today</dt><dd>real users on the live WhatsApp number</dd></div>
+              <div class="cs-r"><dt>2 weeks</dt><dd>from idea to live bot, built solo</dd></div>
+              <div class="cs-r"><dt>Voice, photo, text</dt><dd>plus automated conversation scoring</dd></div>
+            </dl>
+            <div class="tools"><span>Claude</span><span>WhatsApp via Twilio</span><span>Supabase</span><span>Railway + Vercel</span></div>
+            <p class="cs-note">Try her yourself at <a href="https://stackssupplements.ai" target="_blank" rel="noopener">stackssupplements.ai</a>.</p>
+          </article>
 
-      <!-- AI HEALTH COACH -->
-      <article class="case reveal">
-        <div class="case-meta">
-          <span class="who">Calo Inc. · Principal Product Manager · 2024 to 2025</span>
-          <span class="chip beta">Beta at departure</span>
-        </div>
-        <h3>An AI health coach that closes the gap between what people log and what they eat</h3>
-        <div class="case-grid">
-          <div class="case-body">
-            <p class="kicker">The problem</p>
-            <p>Calo delivers personalised meals to hundreds of thousands of clients across the GCC and UK. The number one reason people cancelled: <strong>"I'm not seeing results."</strong> The cause usually wasn't the meals, it was everything else: snacks, weekends, exercise, the untracked calories nobody logs.</p>
-            <p class="kicker">What I did</p>
-            <p>Led an AI health coach from concept to live internal testing. It lives on WhatsApp, so there is no new app to adopt. It connects Apple Health data and a custom link into Calo's backend. I worked with nutritionists to define clinical guardrails, disclaimers and escalation paths, partnered with engineering on the architecture, and tuned the AI's prompts myself.</p>
-            <p>Using workflow tooling and third-party services first got us a working beta in <strong>weeks rather than months</strong>. We traded polish for learning speed on purpose.</p>
-            <div class="tools">
-              <span>Claude (Anthropic)</span><span>WhatsApp</span><span>Apple HealthKit</span><span>n8n workflows</span><span>Photo calorie estimation</span>
-            </div>
-          </div>
-          <aside>
-            <div class="rhead" style="margin-bottom:10px">How it works</div>
-            <div class="flow" style="grid-template-columns:1fr;border-radius:6px">
-              <div class="fstep"><span class="fn">01 · Capture</span><h5>Photograph the meal</h5><p>Or log it by voice or text, straight into WhatsApp</p></div>
-              <div class="fstep" style="border-left:none;border-top:1px solid var(--line)"><span class="fn">02 · Estimate</span><h5>Calories assessed</h5><p>Photo-based estimation plus probing follow-up questions</p></div>
-              <div class="fstep" style="border-left:none;border-top:1px solid var(--line)"><span class="fn">03 · Reconcile</span><h5>Reality vs plan</h5><p>Exercise, snacks and untracked eating folded in via HealthKit</p></div>
-              <div class="fstep" style="border-left:none;border-top:1px solid var(--line)"><span class="fn">04 · Adjust</span><h5>Next week changes</h5><p>Meal plans and calorie targets updated from what actually happened</p></div>
-            </div>
-            <div class="straight" style="margin-top:14px"><b>The honest bit</b>The coach was still in beta when I left Calo, so I make no retention claims for it. What I can offer is one tester's words: "finally I understand why I wasn't seeing results."</div>
-          </aside>
-        </div>
-      </article>
+          <article class="case-slide">
+            <div class="case-meta"><span class="who">Calo Inc. · Principal Product Manager · 2024 to 2025</span><span class="chip beta">Beta at departure</span></div>
+            <h3>An AI health coach that closes the gap between logged and eaten</h3>
+            <p class="cs-body">Calo's number one reason for cancelling was <strong>"I'm not seeing results"</strong>, usually caused by everything people don't log. The coach lives on WhatsApp: photograph a meal, log by voice, answer a probing question or two, and next week's plan adjusts. Clinical guardrails were defined with nutritionists, and I tuned the AI's prompts myself.</p>
+            <dl class="cs-results">
+              <div class="cs-r"><dt>Concept <i>→</i> beta</dt><dd>live internal testing at my departure</dd></div>
+              <div class="cs-r"><dt>Weeks, not months</dt><dd>to a working beta; polish traded for learning speed</dd></div>
+              <div class="cs-r"><dt>"Finally I understand"</dt><dd>tester feedback, word for word</dd></div>
+            </dl>
+            <div class="tools"><span>Claude</span><span>WhatsApp</span><span>Apple HealthKit</span><span>n8n</span></div>
+            <p class="cs-note">Still in beta when I left Calo, so I make no retention claims for it.</p>
+          </article>
 
-      <!-- CONSULTING -->
-      <article class="case reveal">
-        <div class="case-meta">
-          <span class="who">Independent AI consulting · Sole consultant · 2026, ongoing</span>
-          <span class="chip pilot">Live in pilot</span>
-        </div>
-        <h3>An AI quoting agent for a family-run manufacturer, sold and delivered solo</h3>
-        <div class="case-grid">
-          <div class="case-body">
-            <p class="kicker">The engagement</p>
-            <p>A family-run UK custom clothing manufacturer (around 500 orders a month) was drowning in manual work: quotes written from memory, follow-ups missed, systems that didn't talk to each other. The work came through a referral, and I ran all of it myself, from the first call and the pricing through to delivery.</p>
-            <p class="kicker">The diagnosis</p>
-            <p>The real constraint was <strong>team capacity against growing demand</strong>, not missing software. Previous automation attempts had failed because they removed the human touch the business is known for. So every solution keeps a person in control: the AI drafts, a rep reviews and presses send.</p>
-            <p class="kicker">What shipped</p>
-            <p>An AI quoting agent that reads new enquiries, prices them from a governed price list I established as the single source of truth (fixing years of inconsistent pricing along the way), and drafts an on-brand quote straight into the rep's outbox. Around it: automated day-2 and day-7 follow-ups, and automatic pipeline hygiene in the CRM, so the sales data stays honest with zero extra effort from reps.</p>
-            <div class="tools">
-              <span>Claude (Anthropic)</span><span>n8n workflows</span><span>HubSpot CRM</span><span>Outlook</span><span>Human-in-the-loop by design</span>
-            </div>
-          </div>
-          <aside class="results">
-            <div class="rhead">Where it stands</div>
-            <div class="rcard"><dt>20-30 min <i>→</i> under 2</dt><dd>time to produce a quote draft, with positive feedback from the reps using it</dd></div>
-            <div class="rcard"><dt>Won, scoped, sold</dt><dd>my first paid independent engagement, priced and delivered end to end, and extended by the client</dd></div>
-            <div class="rcard"><dt>Pilot first</dt><dd>one brand, one rep, monitored daily. Prove it, then widen</dd></div>
-            <div class="straight"><b>The honest bit</b>The client stays unnamed while the engagement is live. We're still baselining conversion and time saved, so there are no ROI numbers here yet.</div>
-          </aside>
-        </div>
-      </article>
+          <article class="case-slide">
+            <div class="case-meta"><span class="who">Independent consulting · Sole consultant · 2026, ongoing</span><span class="chip pilot">Live in pilot</span></div>
+            <h3>An AI quoting agent for a family-run manufacturer</h3>
+            <p class="cs-body">A family-run UK clothing manufacturer, drowning in manual quoting and missed follow-ups. I ran the engagement alone, from first call to delivery. The agent reads enquiries, prices them from a governed price list I set up as the single source of truth, and drafts an on-brand quote into the rep's outbox. <strong>A person always presses send.</strong></p>
+            <dl class="cs-results">
+              <div class="cs-r"><dt>20-30 min <i>→</i> under 2</dt><dd>to produce a quote draft</dd></div>
+              <div class="cs-r"><dt>Won, scoped, sold</dt><dd>my first paid engagement, since extended</dd></div>
+              <div class="cs-r"><dt>Pilot first</dt><dd>one brand, one rep, monitored daily</dd></div>
+            </dl>
+            <div class="tools"><span>Claude</span><span>n8n</span><span>HubSpot</span><span>Outlook</span></div>
+            <p class="cs-note">The client stays unnamed while the work is live; ROI is still being baselined, so none is claimed.</p>
+          </article>
 
-      <!-- FFF ZERO TO ONE -->
-      <article class="case reveal">
-        <div class="case-meta">
-          <span class="who">Fresh Fitness Food + Detox Kitchen · Chief Product Officer · 2019 to 2024</span>
-          <span class="chip exit">Acquired by Calo</span>
+          <article class="case-slide">
+            <div class="case-meta"><span class="who">Fresh Fitness Food + Detox Kitchen · CPO · 2019 to 2024</span><span class="chip exit">Acquired by Calo</span></div>
+            <h3>From Google Sheets to the platform that carried a £10m business</h3>
+            <p class="cs-body">FFF ran on spreadsheets and manual workflows. As the <strong>only product hire</strong>, I built the whole digital ecosystem: supplier ordering, client management, billing, kitchen operations, delivery logistics. Then an iOS app, then a second brand absorbed after an acquisition, then the migration onto Calo's platform when we were acquired ourselves.</p>
+            <dl class="cs-results">
+              <div class="cs-r"><dt>£100k <i>→</i> £10m</dt><dd>turnover, London-only to nationwide</dd></div>
+              <div class="cs-r"><dt>15% <i>→</i> 3%</dt><dd>food waste, saving hundreds of thousands a year</dd></div>
+              <div class="cs-r"><dt>95%</dt><dd>of active customers kept through the migration</dd></div>
+            </dl>
+            <div class="tools"><span>0-to-1 build</span><span>Stripe billing</span><span>GA4</span><span>100+ user interviews</span></div>
+            <p class="cs-note">The platform proved strong enough to absorb an unplanned acquisition; the nationwide footprint mattered in ours.</p>
+          </article>
         </div>
-        <h3>From Google Sheets to a platform that carried the business to £10m and an acquisition</h3>
-        <div class="case-grid">
-          <div class="case-body">
-            <p class="kicker">The starting point</p>
-            <p>Fresh Fitness Food delivered personalised meals across London, and ran almost entirely on spreadsheets and manual workflows. I was the <strong>only product hire</strong>, promoted from within after making the case that I understood the customer deeply enough to design the platform.</p>
-            <p class="kicker">What I built</p>
-            <p>The entire digital ecosystem from zero: supplier ordering, client management, subscription billing, kitchen operations, delivery logistics. I started by mapping every manual workflow in the business and interviewing every team, then sequenced the build by commercial impact: supplier ordering first (the biggest inefficiency), customer ordering second (the biggest revenue lever), then kitchen and logistics.</p>
-            <p>When FFF acquired Detox Kitchen, the platform absorbed a second brand: separate customer-facing experiences, one merged operational back end. When Calo acquired FFF, the nationwide footprint that platform enabled was a material part of the acquisition story, and I then led the migration of both brands onto Calo's platform, keeping 95% of active customers.</p>
-            <div class="tools">
-              <span>0-to-1 platform build</span><span>Subscription billing</span><span>Stripe</span><span>GA4 + server-side analytics</span><span>100+ user interviews</span>
-            </div>
-          </div>
-          <aside class="results">
-            <div class="rhead">Results</div>
-            <div class="rcard"><dt>£100k <i>→</i> £10m</dt><dd>turnover during my tenure, London-only to nationwide</dd></div>
-            <div class="rcard"><dt>15% <i>→</i> 3%</dt><dd>food waste, saving hundreds of thousands of pounds annually (approximate)</dd></div>
-            <div class="rcard"><dt>4 roles</dt><dd>full-time admin positions eliminated through platform automation</dd></div>
-            <div class="rcard"><dt>2 brands</dt><dd>run on one platform by a sole product function, robust enough for an unplanned acquisition</dd></div>
-          </aside>
-        </div>
-      </article>
+      </div>
     </div>
   </section>
 
@@ -669,8 +629,8 @@
     <div class="wrap">
       <div class="sec-head reveal"><span class="kite"></span><h2>The arc</h2><div class="rule"></div><span class="scroll-hint">drag →</span></div>
       <p class="sec-intro reveal">Ten years in health and nutrition, from the clinic side to the product side. Drag through it.</p>
-      <div class="arc-scroller reveal">
-        <div class="arc-track" tabindex="0" role="region" aria-label="Career timeline, scrolls horizontally">
+      <div class="hscroller reveal">
+        <div class="htrack tl" tabindex="0" role="region" aria-label="Career timeline, scrolls horizontally">
           <article class="arc-card">
             <span class="ac-when">2015 · 2018</span>
             <h4>Head of Nutrition &amp; Client Communications</h4>
@@ -797,21 +757,21 @@
     els.forEach(function(el){ io.observe(el); });
   })();
 
-  /* Career timeline: drag to scroll */
+  /* Horizontal scrollers: drag to scroll */
   (function(){
-    var track = document.querySelector('.arc-track');
-    if (!track) return;
-    var down = false, startX = 0, startL = 0;
-    track.addEventListener('pointerdown', function(e){
-      down = true; startX = e.clientX; startL = track.scrollLeft;
-      track.classList.add('dragging');
-    });
-    window.addEventListener('pointermove', function(e){
-      if (!down) return;
-      track.scrollLeft = startL - (e.clientX - startX);
-    });
-    window.addEventListener('pointerup', function(){
-      down = false; track.classList.remove('dragging');
+    document.querySelectorAll('.htrack').forEach(function(track){
+      var down = false, startX = 0, startL = 0;
+      track.addEventListener('pointerdown', function(e){
+        down = true; startX = e.clientX; startL = track.scrollLeft;
+        track.classList.add('dragging');
+      });
+      window.addEventListener('pointermove', function(e){
+        if (!down) return;
+        track.scrollLeft = startL - (e.clientX - startX);
+      });
+      window.addEventListener('pointerup', function(){
+        down = false; track.classList.remove('dragging');
+      });
     });
   })();
 
