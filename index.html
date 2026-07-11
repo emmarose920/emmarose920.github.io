@@ -348,17 +348,45 @@
     max-width:44ch;line-height:1.5;
   }
 
-  /* ---------- arc ---------- */
-  .arc-list{margin-top:32px;border-top:1px solid var(--line)}
-  .arc{
-    display:grid;grid-template-columns:150px 1fr 1.9fr;gap:28px;
-    padding:21px 0;border-bottom:1px solid var(--line);align-items:baseline;
+  /* ---------- arc (horizontal timeline) ---------- */
+  .scroll-hint{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+  .arc-scroller{position:relative;margin-top:20px}
+  .arc-scroller::after{
+    content:"";position:absolute;top:0;right:0;bottom:16px;width:90px;
+    background:linear-gradient(90deg,rgba(247,246,241,0),var(--paper));pointer-events:none;
   }
-  @media(max-width:860px){.arc{grid-template-columns:1fr;gap:4px;padding:18px 0}}
-  .arc .when{font-family:var(--mono);font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
-  .arc .role{font-weight:600;font-size:16.5px}
-  .arc .role small{display:block;font-weight:400;color:var(--muted);font-size:13.5px}
-  .arc .note{font-size:14.5px;color:var(--ink-soft);max-width:58ch}
+  .arc-track{
+    display:flex;gap:18px;overflow-x:auto;padding:30px 4px 18px;
+    scroll-snap-type:x proximity;cursor:grab;
+    scrollbar-width:thin;scrollbar-color:var(--line) transparent;
+  }
+  .arc-track.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}
+  .arc-track::-webkit-scrollbar{height:6px}
+  .arc-track::-webkit-scrollbar-track{background:var(--paper-dim);border-radius:3px}
+  .arc-track::-webkit-scrollbar-thumb{background:var(--line);border-radius:3px}
+  .arc-track:hover::-webkit-scrollbar-thumb{background:var(--accent)}
+  .arc-card{
+    position:relative;flex:0 0 302px;scroll-snap-align:start;
+    background:#fff;border:1px solid var(--line);border-radius:8px;
+    padding:20px 22px 24px;
+  }
+  .arc-card::before{
+    content:"";position:absolute;top:-26px;left:3px;width:9px;height:9px;border-radius:50%;
+    background:var(--paper);box-shadow:inset 0 0 0 2px var(--accent);
+  }
+  .arc-card::after{
+    content:"";position:absolute;top:-22px;left:18px;right:-19px;height:1px;background:var(--line);
+  }
+  .arc-card:last-child::after{display:none}
+  .arc-card .ac-when{font-family:var(--mono);font-size:11.5px;letter-spacing:.1em;color:var(--accent);font-variant-numeric:tabular-nums;display:block;margin-bottom:10px}
+  .arc-card h4{font-family:var(--serif);font-size:19px;font-weight:600;line-height:1.25;margin-bottom:2px}
+  .arc-card .ac-org{font-size:13px;color:var(--muted);margin-bottom:10px}
+  .arc-card p{font-size:13.5px;line-height:1.55;color:var(--ink-soft)}
+  .arc-card.now{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .arc-card.now::before{background:var(--accent-bright);box-shadow:none}
+  .arc-card.now .ac-when{color:var(--accent-bright)}
+  .arc-card.now .ac-org{color:#a3b1a8}
+  .arc-card.now p{color:#bfc9c2}
 
   /* ---------- about ---------- */
   .about-grid{display:grid;grid-template-columns:minmax(0,1fr) 264px;gap:64px;margin-top:26px;align-items:start}
@@ -639,33 +667,40 @@
 
   <section id="arc">
     <div class="wrap">
-      <div class="sec-head reveal"><span class="kite"></span><h2>The arc</h2><div class="rule"></div></div>
-      <p class="sec-intro reveal">Ten years in health and nutrition, from the clinic side to the product side.</p>
-      <div class="arc-list reveal">
-        <div class="arc">
-          <div class="when">2026 · present</div>
-          <div class="role">Independent AI Consultant <small>+ Co-founder, Stacks</small></div>
-          <div class="note">Selling and delivering applied-AI engagements solo, and running a live AI product of my own.</div>
-        </div>
-        <div class="arc">
-          <div class="when">2024 · 2025</div>
-          <div class="role">Principal Product Manager <small>Calo Inc.</small></div>
-          <div class="note">Personalisation algorithms serving hundreds of thousands of clients, the UK platform migration, and the AI health coach.</div>
-        </div>
-        <div class="arc">
-          <div class="when">2019 · 2024</div>
-          <div class="role">Chief Product Officer <small>Fresh Fitness Food + Detox Kitchen</small></div>
-          <div class="note">Sole product leader through two acquisitions. Built the platform, the app, the analytics culture and the nationwide model.</div>
-        </div>
-        <div class="arc">
-          <div class="when">2018 · 2019</div>
-          <div class="role">Product Performance Manager <small>Fresh Fitness Food</small></div>
-          <div class="note">The deliberate pivot into product: scoped the platform rebuild and made the case to lead it.</div>
-        </div>
-        <div class="arc">
-          <div class="when">2015 · 2018</div>
-          <div class="role">Head of Nutrition &amp; Client Communications <small>Fresh Fitness Food</small></div>
-          <div class="note">Led a team of five nutritionists. Quoted as a nutrition expert in GQ, Cosmopolitan and The Telegraph.</div>
+      <div class="sec-head reveal"><span class="kite"></span><h2>The arc</h2><div class="rule"></div><span class="scroll-hint">drag →</span></div>
+      <p class="sec-intro reveal">Ten years in health and nutrition, from the clinic side to the product side. Drag through it.</p>
+      <div class="arc-scroller reveal">
+        <div class="arc-track" tabindex="0" role="region" aria-label="Career timeline, scrolls horizontally">
+          <article class="arc-card">
+            <span class="ac-when">2015 · 2018</span>
+            <h4>Head of Nutrition &amp; Client Communications</h4>
+            <div class="ac-org">Fresh Fitness Food</div>
+            <p>Led a team of five nutritionists. Quoted as a nutrition expert in GQ, Cosmopolitan and The Telegraph.</p>
+          </article>
+          <article class="arc-card">
+            <span class="ac-when">2018 · 2019</span>
+            <h4>Product Performance Manager</h4>
+            <div class="ac-org">Fresh Fitness Food</div>
+            <p>The deliberate pivot into product: scoped the platform rebuild and made the case to lead it.</p>
+          </article>
+          <article class="arc-card">
+            <span class="ac-when">2019 · 2024</span>
+            <h4>Chief Product Officer</h4>
+            <div class="ac-org">Fresh Fitness Food + Detox Kitchen</div>
+            <p>Sole product leader through two acquisitions. Built the platform, the app, the analytics culture and the nationwide model.</p>
+          </article>
+          <article class="arc-card">
+            <span class="ac-when">2024 · 2025</span>
+            <h4>Principal Product Manager</h4>
+            <div class="ac-org">Calo Inc.</div>
+            <p>Personalisation algorithms serving hundreds of thousands of clients, the UK platform migration, and the AI health coach.</p>
+          </article>
+          <article class="arc-card now">
+            <span class="ac-when">2026 · now</span>
+            <h4>Independent AI Consultant</h4>
+            <div class="ac-org">+ Co-founder, Stacks</div>
+            <p>Selling and delivering applied-AI engagements solo, and running a live AI product of my own.</p>
+          </article>
         </div>
       </div>
     </div>
@@ -760,6 +795,24 @@
       });
     }, {rootMargin:'0px 0px -8% 0px'});
     els.forEach(function(el){ io.observe(el); });
+  })();
+
+  /* Career timeline: drag to scroll */
+  (function(){
+    var track = document.querySelector('.arc-track');
+    if (!track) return;
+    var down = false, startX = 0, startL = 0;
+    track.addEventListener('pointerdown', function(e){
+      down = true; startX = e.clientX; startL = track.scrollLeft;
+      track.classList.add('dragging');
+    });
+    window.addEventListener('pointermove', function(e){
+      if (!down) return;
+      track.scrollLeft = startL - (e.clientX - startX);
+    });
+    window.addEventListener('pointerup', function(){
+      down = false; track.classList.remove('dragging');
+    });
   })();
 
   /* Molly chat demo: plays the conversation, loops, click to replay */
