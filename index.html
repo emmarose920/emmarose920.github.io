@@ -150,24 +150,24 @@
   .hero-phone .phone-cap a{color:#cfd8d1}
   .hero-phone .phone-cap a:hover{color:var(--accent-bright)}
 
-  /* stat row inside hero */
-  .ledger{border-top:1px solid rgba(255,255,255,.14);position:relative}
+  /* ---------- stat band (its own block) ---------- */
+  .ledger{background:var(--paper-dim);border-bottom:1px solid var(--line)}
   .ledger-grid{display:grid;grid-template-columns:repeat(4,1fr)}
   @media(max-width:860px){.ledger-grid{grid-template-columns:repeat(2,1fr)}}
-  .stat{padding:28px 28px 40px 28px;border-left:1px solid rgba(255,255,255,.1)}
+  .stat{padding:42px 28px 46px;border-left:1px solid var(--line)}
   .stat:first-child{border-left:none;padding-left:0}
   @media(max-width:860px){
-    .stat{padding-left:0;border-left:none;border-top:1px solid rgba(255,255,255,.1)}
+    .stat{padding:26px 0 30px;border-left:none;border-top:1px solid var(--line)}
     .stat:nth-child(-n+2){border-top:none}
-    .stat:nth-child(even){padding-left:28px;border-left:1px solid rgba(255,255,255,.1)}
+    .stat:nth-child(even){padding-left:28px;border-left:1px solid var(--line)}
   }
   .stat .num{
     font-family:var(--serif);font-variant-numeric:tabular-nums;
     font-size:clamp(28px,3.2vw,40px);font-weight:560;letter-spacing:-.02em;
-    line-height:1.1;color:var(--paper);
+    line-height:1.1;color:var(--ink);
   }
-  .stat .num i{font-style:italic;color:var(--accent-bright)}
-  .stat .lab{font-size:13px;color:#a3b1a8;margin-top:8px;line-height:1.5;max-width:24ch}
+  .stat .num i{font-style:italic;color:var(--accent)}
+  .stat .lab{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.5;max-width:24ch}
 
   /* ---------- section scaffolding ---------- */
   section{padding:88px 0 20px}
@@ -489,8 +489,10 @@
         <span class="phone-cap">Molly, my AI nutritionist · <a href="https://stackssupplements.ai" target="_blank" rel="noopener">live at stackssupplements.ai</a></span>
       </aside>
     </div>
-    <div class="wrap ledger">
-      <div class="ledger-grid">
+  </div>
+
+  <div class="ledger">
+    <div class="wrap ledger-grid">
         <div class="stat">
           <div class="num">95<i>%</i></div>
           <div class="lab">of active customers retained through a five-month platform migration</div>
@@ -507,7 +509,6 @@
           <div class="num">£100k <i>→</i> £10m</div>
           <div class="lab">turnover growth at Fresh Fitness Food, where I was the only product hire</div>
         </div>
-      </div>
     </div>
   </div>
 
